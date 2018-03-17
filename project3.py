@@ -9,8 +9,8 @@ def Decision(decision):
     elif decision == "Sell":
         w = Label(root, Sell(decision))
         w.pack()
-    elif decision == "Chance":
-        w = Label(root, Chance(decision))
+    elif decision == "Combined":
+        w = Label(root, Combined(decision))
         w.pack()
 
 
@@ -21,10 +21,13 @@ def Rent(decision):
     floors = int(input("Enter the number of floors:"))
     construction_area = area*floors
     rent = float(input("Enter the rent price for 1 m*m per month:"))
+    months = int(input("Profit months:"))
     construction_maintenance = float(input("Price of the construction maintenance for month in euro:"))
     residue_after_payments = user.income-construction_price-purchasing_area
     income_for_month = (construction_area*rent)-construction_maintenance
-    x = float((user.income-residue_after_payments)/income_for_month)
+    x = int((user.income-residue_after_payments)/income_for_month)
+    j = months*(area*rent-construction_maintenance)
+    p = j-x*(area*rent-construction_maintenance)
     if residue_after_payments >= 0:
         w = Label(root, text = "There are")
         w.pack()
@@ -32,9 +35,19 @@ def Rent(decision):
         w.pack()
         w = Label(root, text = "euros left!")
         w.pack()
-        w = Label(root, text = "Your residue after payments is")
+        w = Label(root, text = "You will return your investments in")
         w.pack()
         w = Label(root, text = x)
+        w.pack()
+        w = Label(root, text = "months")
+        w.pack()
+        w = Label(root, text = "Your income for")
+        w.pack()
+        w = Label(root, text = months)
+        w.pack()
+        w = Label(root, text = "months is")
+        w.pack()
+        w = Label(root, text = p)
         w.pack()
 	
     else:
@@ -67,7 +80,7 @@ def Sell(decision):
     y = Label(root, text = gains)
     y.pack()
     
-def Chance(decision):
+def Combined(decision):
     percentage_of_sellings = float(input("The percentage of the sellings(The part of your possessions you want to sell.):"))
     percentage_of_rents = float(input("The percentage of the rents(The part of things(for example: apartments)you want to rent.):"))
     construction_price1 = float(input("Price of the construction in euro:"))
@@ -80,11 +93,11 @@ def Chance(decision):
     area = float(input("Enter the area in m*m:"))
     floors = int(input("Enter the number of floors:"))
     construction_area = area*floors
-    months = int(input("Months for profit:"))
+    months = int(input("Profit months:"))
     income_for_month = (construction_area*rent)-construction_maintenance
     j = months*(area*rent-construction_maintenance)
     earnings = (percentage_of_rents/100)*j + (percentage_of_sellings/100)*gains
-    y = int(((construction_price1 + purchasing_area1) - gains)/income_for_month)
+    y = int(((construction_price1 + purchasing_area1) - gains-construction_price1-purchasing_area1)/income_for_month)
     earnings_after_payments = int(earnings - y)
     
     
@@ -131,7 +144,7 @@ class User:
         self.income = income
 
 user = User(float(input("Your income:")))
-decision = input("What do you want to do?(Sell/Rent/Chance)")
+decision = input("What do you want to do?(Sell/Rent/Combined)")
 a = Label(root, Decision(decision))
 a.pack()
 
