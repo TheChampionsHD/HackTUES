@@ -21,24 +21,39 @@ def Rent(decision):
     floors = int(input("Enter the number of floors:"))
     construction_area = area*floors
     rent = float(input("Enter the rent price for 1 m*m per month:"))
-    income_for_month = (construction_area*rent)-construction_maintenance
-    x = (user.income-residue_after_payments)/income_for_month
     construction_maintenance = float(input("Price of the construction maintenance for month in euro:"))
     residue_after_payments = user.income-construction_price-purchasing_area
+    income_for_month = (construction_area*rent)-construction_maintenance
+    x = float((user.income-residue_after_payments)/income_for_month)
     if residue_after_payments >= 0:
-        w = Label(root,residue_after_payments, text = "There are")
+        w = Label(root, text = "There are")
+        w.pack()
+        w = Label(root, text = residue_after_payments)
         w.pack()
         w = Label(root, text = "euros left!")
         w.pack()
+        w = Label(root, text = "Your residue after payments is")
+        w.pack()
+        w = Label(root, text = x)
+        w.pack()
 	
     else:
-        q = Label("You must pay", 0-residue_after_payments, "euro!")
+        q = Label(root, text = "You must pay")
         q.pack()
-        e = Label(root,int(x), text = "You can make the payment after:")
+        q = Label(root, text = 0-residue_after_payments)
+        q.pack()
+        q = Label(root,text = "euros")
+        q.pack()
+        e = Label(root, text = "You can make the payment after:")
         e.pack()
-        r = Label(root,income_for_month, text = 'Income for month is')
+        e = Label(root, int(x))
+        e.pack()
+        r = Label(root,text = 'Income for month is')
         r.pack()
-        t = Label(root,construction_area, text = "The summarized area is")
+        r = Label(root,text = income_for_month)
+        t = Label(root, text = "The summarized area is")
+        t.pack()
+        t = Label(root, text = construction_area)
         t.pack()
 
 def Sell(decision):
@@ -51,6 +66,7 @@ def Sell(decision):
     y.pack()
     y = Label(root, text = gains)
     y.pack()
+    
 def Chance(decision):
     percentage_of_sellings = float(input("The percentage of the sellings(The part of your possessions you want to sell.):"))
     percentage_of_rents = float(input("The percentage of the rents(The part of things(for example: apartments)you want to rent.):"))
@@ -59,14 +75,35 @@ def Chance(decision):
     selling_area = float(input("Price of the selling area:"))
     residue_after_payments = user.income-construction_price1-purchasing_area1
     gains = selling_area-purchasing_area1-construction_price1
-    earnings = (percentage_of_rents/100)*residue_after_payments - (percentage_of_sellings/100)*gains
-	
+    rent = float(input("Enter the rent price for 1 m*m per month:"))
+    construction_maintenance = float(input("Price of the construction maintenance for month in euro:"))
+    area = float(input("Enter the area in m*m:"))
+    floors = int(input("Enter the number of floors:"))
+    construction_area = area*floors
+    months = int(input("Months for profit:"))
+    income_for_month = (construction_area*rent)-construction_maintenance
+    j = months*(area*rent-construction_maintenance)
+    earnings = (percentage_of_rents/100)*j + (percentage_of_sellings/100)*gains
+    y = int(((construction_price1 + purchasing_area1) - gains)/income_for_month)
+    earnings_after_payments = int(earnings - y)
+    
+    
     if earnings > 0:
         u = Label(root,text = "You will receive")
         u.pack()
         u = Label(root, text = earnings)
         u.pack()
         o = Label(root, text = "Do it if you want!")
+        o.pack()
+        o = Label(root, text = "After")
+        o.pack()
+        o = Label(root, text = y)
+        o.pack()
+        o = Label(root, text = "months you will return your payments")
+        o.pack()
+        o = Label(root, text = "Your resedue after payments is")
+        o.pack()
+        o = Label(root, text = earnings_after_payments)
         o.pack()
         
     elif earnings == 0:
@@ -84,8 +121,10 @@ def Chance(decision):
         s.pack()
         s = Label(root, text = "euro!")
         s.pack()
-        d = Label(root, text = "Do NOT do this!")
+        d = Label(root, text = "Do NOT do invest in this or take credit!")
         d.pack()
+
+    
 
 class User:
     def __init__(self, income):
@@ -95,3 +134,5 @@ user = User(float(input("Your income:")))
 decision = input("What do you want to do?(Sell/Rent/Chance)")
 a = Label(root, Decision(decision))
 a.pack()
+
+
