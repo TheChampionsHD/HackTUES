@@ -1,7 +1,0 @@
-purchasing_area = float(input("Price of the area in euro:"))
-construction_price = float(input("Price of the construction in euro:"))
-construction_maintenance = float(input("Price of the construction maintenance in euro:"))
-area = float(input("Enter the area in m*m:"))
-floors = int(input("Enter the number of floors:"))
-construction_area = area*floors
-print(construction_area)
