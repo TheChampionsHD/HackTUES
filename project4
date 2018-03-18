@@ -1,0 +1,221 @@
+from tkinter import *
+from tkinter import ttk
+    
+
+main = Tk()
+main.title('Investment Calculator')
+main.geometry('800x700')
+
+a = Label(main, text = "INVESTMENTS CALCULATOR")
+a.grid()
+    
+
+rows = 0
+while rows < 50:
+    main.rowconfigure(rows, weight=1)
+    main.columnconfigure(rows, weight=1)
+    rows += 1
+ 
+nb = ttk.Notebook(main)
+nb.grid(row=1, column=0, columnspan=50, rowspan=49, sticky='NESW')
+ 
+page1 = ttk.Frame(nb)
+nb.add(page1, text='Home')
+
+a = Label(page1, text = "This program is for verifying if an investment project is profitable.")
+a.grid(row = 0)
+
+income1 = StringVar()
+
+Label(page1, text = "Enter your income here :").grid(row = 4)
+income = Entry(page1, textvariable = income1)
+income.grid(row = 4, column = 1)
+
+def Income():
+    income1 = income.get()
+    return income1
+
+p = ttk.Button(page1, text = "Add Income", command = Income)
+p.grid(row = 6)
+
+page2 = ttk.Frame(nb)
+nb.add(page2, text='Sell')
+
+a = Label(page2, text = "You have to entry your deal's parameters:")
+a.grid()
+
+purchasing_area1 = StringVar()
+construction_price1 = StringVar()
+selling_area1 = StringVar()
+
+Label(page2, text = "Enter the price of the area in euro:").grid(row = 4)
+purchasing_area = Entry(page2, textvariable=purchasing_area1)
+purchasing_area.grid(row = 4, column = 1)
+Label(page2, text = "Enter the construction price:").grid(row = 6)
+construction_price = Entry(page2, textvariable=construction_price1)
+construction_price.grid(row = 6, column = 1)
+Label(page2, text = "Enter the price of the selling area:").grid(row = 8) 
+selling_area = Entry(page2, textvariable=selling_area1)
+selling_area.grid(row = 8, column = 1)
+
+
+def sell():
+    gains = int(selling_area1.get())-int(purchasing_area1.get())-int(construction_price1.get())
+    if gains >= 0:
+        a = Label(page2, text = "Your gains are")
+        a.grid(row = 12)
+        a = Label(page2, text = gains)
+        a.grid(row = 14)
+        a = Label(page2, text = "euro!")
+        a.grid(row = 16)
+    else:
+        a = Label(page2, text = "You will lose")
+        a.grid(row = 12)
+        a = Label(page2, text = 0-gains)
+        a.grid(row = 14)
+        a = Label(page2, text = "euro!")
+        a.grid(row = 16)
+    
+
+b = ttk.Button(page2, text = "Calculate", command = sell)
+b.grid(row = 10)
+
+Label()
+page3 = ttk.Frame(nb)
+nb.add(page3, text = "Rent")
+
+a = Label(page3, text = "You have to entry your deal's parameters:")
+a.grid()
+
+purchasing_area1 = StringVar()
+construction_price1 = StringVar()
+area1 = StringVar()
+rent1 = StringVar()
+months1 = StringVar()
+floors1 = StringVar()
+construction_maintenance1 = StringVar()
+
+Label(page3, text = "Enter the price of the area in euro:").grid(row = 4)
+purchasing_area = Entry(page3, textvariable=purchasing_area1)
+purchasing_area.grid(row = 4, column = 1)
+Label(page3, text = "Enter the construction price:").grid(row = 6)
+construction_price = Entry(page3, textvariable=construction_price1)
+construction_price.grid(row = 6, column = 1)
+Label(page3, text = "Enter the area in m*m:").grid(row = 8) 
+area = Entry(page3, textvariable=area1)
+area.grid(row = 8, column = 1)
+Label(page3, text = "Enter the rent price for 1 m*m per month:").grid(row = 10) 
+rent = Entry(page3, textvariable=rent1)
+rent.grid(row = 10, column = 1)
+Label(page3, text = "Profit months:").grid(row = 12) 
+months = Entry(page3, textvariable=months1)
+months.grid(row = 12, column = 1)
+Label(page3, text = "Enter the number of floors:").grid(row = 14) 
+floors = Entry(page3, textvariable=floors1)
+floors.grid(row = 14, column = 1)
+Label(page3, text = "Price of the construction maintenance for month in euro:").grid(row = 16) 
+construction_maintenance = Entry(page3, textvariable=construction_maintenance1)
+construction_maintenance.grid(row = 16, column = 1)
+
+def rent():
+    residue_after_payments = int(income1.get()) - int(construction_price1.get()) - int(purchasing_area1.get())
+    if residue_after_payments >= 0:
+        a = Label(page3, text = "There are")
+        a.grid(row = 20)
+        a = Label(page3, text = residue_after_payments)
+        a.grid(row = 22)
+        a = Label(page3, text = "euros left!")
+        a.grid(row = 24)
+    else:
+        a = Label(page3, text = "You must pay")
+        a.grid(row = 20)
+        a = Label(page3, text = 0-residue_after_payments)
+        a.grid(row = 22)
+        a = Label(page3, text = "euros!")
+        a.grid(row = 24)
+    
+
+b = ttk.Button(page3, text = "Calculate", command = rent )
+b.grid(row = 18)
+
+
+page4 = ttk.Frame(nb)
+nb.add(page4, text = "Combined")
+ 
+a = Label(page3, text = "You have to entry your deal's parameters:")
+a.grid()
+
+
+prcentage_of_sellings1 = StringVar()
+selling_area1 = StringVar()
+purchasing_area1 = StringVar()
+percentage_of_rents1 = StringVar()
+construction_price1 = StringVar()
+area1 = StringVar()
+rent1 = StringVar()
+months1 = StringVar()
+floors1 = StringVar()
+construction_maintenance1 = StringVar()
+
+
+Label(page4, text = "The percentage of the sellings(the part of your possesion you want to sell):").grid(row = 4)
+percentage_of_sellings = Entry(page4, textvariable=percentage_of_sellings1)
+percentage_of_sellings.grid(row = 4, column = 1)
+Label(page4, text = "The percentage of the rents(the part of things,(for example: apartments(you want to rent):").grid(row = 6)
+percentage_of_rents = Entry(page4, textvariable=percentage_of_rents1)
+percentage_of_rents.grid(row = 6, column = 1)
+Label(page4, text = "Price of the construction in euro").grid(row = 8) 
+construction_price = Entry(page4, textvariable=construction_price1)
+construction_price.grid(row = 8, column = 1)
+Label(page4, text = "Price of the area in euro:").grid(row = 10) 
+purchasing_area = Entry(page4, textvariable=purchasing_area1)
+purchasing_area.grid(row = 10, column = 1)
+Label(page4, text = "Price of the selling area:").grid(row = 12) 
+selling_area = Entry(page4, textvariable=selling_area1)
+selling_area.grid(row = 12, column = 1)
+Label(page4, text = "Enter the rent price for 1 m*m per month:").grid(row = 14) 
+rent = Entry(page4, textvariable=rent1)
+rent.grid(row = 14, column = 1)
+Label(page4, text = "Price of the construction maintenance for month in euro:").grid(row = 16) 
+construction_maintenance = Entry(page4, textvariable=construction_maintenance1)
+construction_maintenance.grid(row = 16, column = 1)
+Label(page4, text = "Enter the area in m*m:").grid(row = 18) 
+area = Entry(page4, textvariable=area1)
+area.grid(row = 18, column = 1)
+Label(page4, text = "Enter the number of floors").grid(row = 20) 
+floors = Entry(page4, textvariable=floors1)
+floors.grid(row = 20, column = 1)
+Label(page4, text = "Profit months:").grid(row = 22) 
+months = Entry(page4, textvariable=months1)
+months.grid(row = 22, column = 1)
+
+
+def combined():
+    income_for_months = int(construction_area1.get()*rent1.get())- int(construction_maintenance1.get())
+    j = int(months1.get())*(int(area1.get())*int(rent1.get())-int(construction_maintenance1.get()))
+    earnings = (int(percentage_of_rents1.get()/100))*j + (int(prcentage_of_sellings1.get()/100))*gains
+    y = (int(construction_price1.get())+int(purchasing_area1.get())) - gains - int(construction_price1.get())-int(purchasing_area1.get())/income_for_months
+    earnings_after_payments = int(earnings - y)
+    if earnings > 0:
+        a = Label(page4, text = "You will receive")
+        a.grid(row = 20)
+        a = Label(page4, text = earnings)
+        a.grid(row = 22)
+        a = Label(page4, text = "Do it if you want!!!")
+        a.grid(row = 24)
+        a = Label(page4, text = "After")
+        a.grid(row = 26)
+        a = Label(page4, text = y)
+        a.grid(row = 28)
+        a = Label(page4, text = "months you will return your payments!!!")
+        a.grid(row = 30)
+        a =  Label(page5, text = "Your resedue after payments is")
+        a.grid()
+        a = Label(page5, text = earnings_after_payments)
+o.grid()
+
+b = ttk.Button(page3, text = "Calculate", command = combined )
+b.grid(row = 18)
+
+main.mainloop()
+
